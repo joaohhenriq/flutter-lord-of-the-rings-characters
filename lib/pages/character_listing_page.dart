@@ -24,52 +24,40 @@ class _CharacterListingPageState extends State<CharacterListingPage> {
         ],
       ),
       body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                "assets/images/background1.jpg",
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 32, top: 8),
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "Lord of the Rings",
+                        style: TextStyle(
+                          fontFamily: "Tangerine Bold",
+                          color: Colors.black,
+                          fontSize: 60,
+                        )),
+                    TextSpan(
+                      text: "\n",
+                    ),
+                    TextSpan(
+                      text: "Characters",
+                      style: TextStyle(
+                        fontFamily: "Tangerine",
+                        color: Colors.grey[600],
+                        fontSize: 40,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          child: Container(
-            color: Colors.black.withOpacity(0.4),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 32, top: 8),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: "Lord of the Rings",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w700,
-                            )),
-                        TextSpan(
-                          text: "\n",
-                        ),
-                        TextSpan(
-                          text: "Characters",
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 26,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: CharacterWidget(),
-                )
-              ],
-            ),
-          ),
+            Expanded(
+              child: CharacterWidget(),
+            )
+          ],
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lord_of_the_rings_characters/model/character_model.dart';
+import 'package:lord_of_the_rings_characters/pages/character_detail_page.dart';
 
 class CharacterWidget extends StatelessWidget {
   @override
@@ -7,75 +8,91 @@ class CharacterWidget extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Stack(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: ClipPath(
-              clipper: CharacterCardBackgroundClipper(),
-              child: Container(
-                height: 0.6 * screenHeight,
-                width: 0.9 * screenWidth,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(
-                      characters[0].backgroundPath,
-                    ),
-                  ),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black,
-                        Colors.black.withOpacity(0.8),
-                        Colors.black.withOpacity(0.5),
-                        Colors.black.withOpacity(0.7),
-                        Colors.black,
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            PageRouteBuilder(
+                transitionDuration: Duration(milliseconds: 350),
+                pageBuilder: (context, _, __) => CharacterDetailPage(
+                      character: characters[0],
+                    )));
+      },
+      child: Stack(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ClipPath(
+                clipper: CharacterCardBackgroundClipper(),
+                child: Hero(
+                  tag: "background-${characters[0].name}",
+                  child: Container(
+                    height: 0.6 * screenHeight,
+                    width: 0.9 * screenWidth,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.black87,
+                            Colors.black87,
+                          ],
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-        Align(
-          alignment: Alignment(0.6, -0.45),
-          child: Image.asset(
-            characters[0].imagePath,
-            height: screenHeight * 0.60,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 48, right: 16, bottom: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                characters[0].name,
-                style: TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 28,
-                    color: Colors.white),
+          Align(
+            alignment: Alignment(0.6, -1.2),
+            child: Hero(
+              tag: "image-${characters[0].name}",
+              child: Image.asset(
+                characters[0].imagePath,
+                height: screenHeight * 0.55,
               ),
-              Text(
-                "Tap to read more",
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    color: Colors.white),
-              )
-            ],
+            ),
           ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.only(left: 48, right: 16, bottom: 30,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Hero(
+                  tag: "name-${characters[0].name}",
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Container(
+                      child: Text(
+                        characters[0].name,
+                        style: TextStyle(
+                          fontFamily: "Tangerine Bold",
+                          fontSize: 50,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8,),
+                Text(
+                  "Tap to read more",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      color: Colors.grey),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

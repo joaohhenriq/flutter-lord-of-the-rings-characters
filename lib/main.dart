@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        platform: TargetPlatform.iOS,
         primaryColor: Colors.white,
         canvasColor: Colors.white,
         appBarTheme: AppBarTheme(
