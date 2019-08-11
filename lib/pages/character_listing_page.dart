@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lord_of_the_rings_characters/model/character_model.dart';
 import 'package:lord_of_the_rings_characters/widgets/character_widget.dart';
 
 class CharacterListingPage extends StatefulWidget {
@@ -7,6 +8,16 @@ class CharacterListingPage extends StatefulWidget {
 }
 
 class _CharacterListingPageState extends State<CharacterListingPage> {
+  PageController _pageController;
+  int currentPage = 0;
+
+  @override
+  void initState() {
+    _pageController = PageController(
+        viewportFraction: 1.0, initialPage: currentPage, keepPage: false);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +66,17 @@ class _CharacterListingPageState extends State<CharacterListingPage> {
               ),
             ),
             Expanded(
-              child: CharacterWidget(),
+              child: PageView(
+                controller: _pageController,
+                children: <Widget>[
+                  for (var i = 0; i < characters.length; i++)
+                    CharacterWidget(
+                      characterModel: characters[i],
+                      pageController: _pageController,
+                      currentIndex: i
+                    ),
+                ],
+              ),
             )
           ],
         ),

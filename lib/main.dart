@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
         platform: TargetPlatform.iOS,
         primaryColor: Colors.white,
         canvasColor: Colors.white,
+        primaryColorBrightness: Brightness.light,
         appBarTheme: AppBarTheme(
           elevation: 0,
           color: Colors.white
